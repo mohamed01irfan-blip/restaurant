@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasumai Family Restaurant | Pure Vegetarian Bliss</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --green-dark: #1a4a2e;
+    --green-mid: #2d7a4f;
+    --green-light: #4caf72;
+    --green-pale: #a8d5b5;
+    --gold: #d4a017;
+    --gold-light: #f0c53a;
+    --cream: #fdf8ef;
+    --cream-dark: #f5ead5;
+    --brown: #6b3f1e;
+    --white: #ffffff;
+    --text-dark: #1a2e1a;
+    --text-mid: #3d5a3d;
+    --shadow: rgba(26,74,46,0.18);
+    --leaf: #3aad6b;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-track { background: var(--cream-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--green-mid); border-radius: 10px; }
+
+  /* ─── PRELOADER ─── */
+  #preloader {
+    position: fixed; inset: 0;
+    background: var(--green-dark);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  #preloader.hide { opacity: 0; visibility: hidden; }
+  .preloader-leaf {
+    font-size: 3.5rem;
+    animation: spin 1.5s linear infinite;
+    color: var(--gold);
+  }
+  .preloader-text {
+    font-family: 'Dancing Script', cursive;
+    color: var(--cream);
+    font-size: 1.8rem;
+    margin-top: 1rem;
+    opacity: 0;
+    animation: fadeIn 1s 0.5s forwards;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; width: 100%;
+    z-index: 1000;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+    background: transparent;
+  }
+  nav.scrolled {
+    background: rgba(26,74,46,0.97);
+    backdrop-filter: blur(12px);
+    padding: 0.7rem 2rem;
+    box-shadow: 0 4px 30px var(--shadow);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.6rem;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 46px; height: 46px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 0 18px rgba(212,160,23,0.5);
+    animation: pulse-logo 3s infinite;
+  }
+  @keyframes pulse-logo {
+    0%,100% { box-shadow: 0 0 18px rgba(212,160,23,0.5); }
+    50% { box-shadow: 0 0 30px rgba(212,160,23,0.9); }
+  }
+  .logo-text { line-height: 1.1; }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 800;
+    color: var(--white);
+    display: block;
+  }
+  .logo-sub {
+    font-size: 0.68rem; letter-spacing: 0.2em;
+    color: var(--gold-light); text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none; align-items: center;
+  }
+  .nav-links a {
+    color: var(--white); text-decoration: none;
+    font-size: 0.9rem; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    position: relative; padding-bottom: 4px;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-btn {
+    background: var(--gold) !important;
+    color: var(--green-dark) !important;
+    padding: 0.5rem 1.2rem !important;
+    border-radius: 50px !important;
+    font-weight: 700 !important;
+    transition: transform 0.3s, box-shadow 0.3s !important;
+  }
+  .nav-btn:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(212,160,23,0.5); }
+  .nav-btn::after { display: none !important; }
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 5px;
+  }
+  .hamburger span {
+    width: 26px; height: 2.5px;
+    background: var(--white); border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 0; right: -100%;
+    width: 280px; height: 100vh;
+    background: var(--green-dark);
+    padding: 5rem 2rem 2rem;
+    transition: right 0.4s ease;
+    z-index: 999;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.3);
+  }
+  .mobile-menu.open { right: 0; }
+  .mobile-menu ul { list-style: none; }
+  .mobile-menu ul li { margin-bottom: 1.5rem; }
+  .mobile-menu ul a {
+    color: var(--white); text-decoration: none;
+    font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.05em;
+    display: flex; align-items: center; gap: 0.8rem;
+    transition: color 0.3s;
+  }
+  .mobile-menu ul a:hover { color: var(--gold-light); }
+  .mobile-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+  }
+  .mobile-overlay.open { display: block; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(145deg, #0d2b1a 0%, #1a4a2e 40%, #2d7a4f 100%);
+  }
+  .hero-leaves {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+  }
+  .leaf-float {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.12;
+    animation: floatLeaf 8s infinite ease-in-out;
+  }
+  .leaf-float:nth-child(1) { top:10%; left:5%; animation-delay:0s; font-size:3rem; }
+  .leaf-float:nth-child(2) { top:20%; right:8%; animation-delay:1.5s; font-size:2.5rem; }
+  .leaf-float:nth-child(3) { top:60%; left:2%; animation-delay:3s; font-size:2rem; }
+  .leaf-float:nth-child(4) { bottom:15%; right:5%; animation-delay:2s; font-size:3.5rem; }
+  .leaf-float:nth-child(5) { top:40%; right:15%; animation-delay:4s; font-size:1.8rem; }
+  .leaf-float:nth-child(6) { bottom:30%; left:10%; animation-delay:0.5s; font-size:2.8rem; }
+  @keyframes floatLeaf {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(10deg); }
+    66% { transform: translateY(10px) rotate(-8deg); }
+  }
+  .hero-circles {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .hero-circle {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .hero-circle:nth-child(1) { width:600px;height:600px; top:-150px;right:-150px; animation: rotateSlow 30s linear infinite; }
+  .hero-circle:nth-child(2) { width:400px;height:400px; bottom:-100px;left:-100px; animation: rotateSlow 20s linear infinite reverse; }
+  @keyframes rotateSlow { to { transform: rotate(360deg); } }
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; padding: 2rem;
+    max-width: 800px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(212,160,23,0.15);
+    border: 1px solid rgba(212,160,23,0.4);
+    color: var(--gold-light);
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.8rem; letter-spacing: 0.2em; font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: slideDown 0.8s ease both;
+  }
+  @keyframes slideDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800; color: var(--white);
+    line-height: 1.05;
+    animation: slideUp 0.9s 0.2s ease both;
+  }
+  .hero-title span { color: var(--gold); font-style: italic; }
+  @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  .hero-subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--green-pale);
+    margin-top: 0.5rem;
+    animation: slideUp 0.9s 0.4s ease both;
+  }
+  .hero-desc {
+    color: rgba(255,255,255,0.7);
+    font-size: 1.05rem; line-height: 1.8;
+    max-width: 580px; margin: 1.5rem auto;
+    animation: slideUp 0.9s 0.6s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 2rem;
+    animation: slideUp 0.9s 0.8s ease both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--green-dark);
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px; border: none;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 25px rgba(212,160,23,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(212,160,23,0.5); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255,255,255,0.4);
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(255,255,255,0.5); font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(8px);} }
+  .hero-stats {
+    display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;
+    margin-top: 2.5rem;
+    animation: slideUp 0.9s 1s ease both;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 800; color: var(--gold);
+    display: block;
+  }
+  .stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ─── SECTION COMMONS ─── */
+  section { padding: 6rem 2rem; }
+  .section-tag {
+    display: inline-block;
+    background: rgba(76,175,114,0.12);
+    color: var(--green-mid);
+    border: 1px solid rgba(76,175,114,0.3);
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800; color: var(--green-dark);
+    line-height: 1.15;
+  }
+  .section-title span { color: var(--green-mid); font-style: italic; }
+  .section-title.light { color: var(--white); }
+  .section-title.light span { color: var(--gold); }
+  .section-divider {
+    width: 60px; height: 3px;
+    background: linear-gradient(to right, var(--gold), var(--green-light));
+    border-radius: 10px; margin: 1.2rem 0;
+  }
+  .center { text-align: center; }
+  .center .section-divider { margin: 1.2rem auto; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* ─── ABOUT ─── */
+  .about { background: var(--cream); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-img-wrap {
+    position: relative;
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 25px 60px var(--shadow);
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-img-icon {
+    font-size: 8rem; opacity: 0.3;
+    animation: floatLeaf 6s infinite;
+  }
+  .about-img-text {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: var(--white);
+  }
+  .about-img-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700;
+  }
+  .about-img-text p { opacity: 0.8; font-size: 0.9rem; }
+  .about-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 110px; height: 110px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--green-dark);
+    box-shadow: 0 8px 30px rgba(212,160,23,0.4);
+    animation: pulse-logo 3s infinite;
+    text-align: center;
+    border: 4px solid var(--white);
+  }
+  .about-badge strong { font-size: 1.6rem; font-weight: 800; display: block; }
+  .about-badge span { font-size: 0.7rem; font-weight: 700; line-height: 1.2; }
+  .about-content p {
+    color: var(--text-mid); line-height: 1.9; margin-bottom: 1rem; font-size: 1.02rem;
+  }
+  .about-features {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0;
+  }
+  .about-feat {
+    display: flex; align-items: center; gap: 0.7rem;
+    background: var(--cream-dark);
+    padding: 0.8rem 1rem; border-radius: 10px;
+    font-weight: 700; color: var(--green-dark);
+    font-size: 0.9rem;
+    border-left: 3px solid var(--green-light);
+    transition: transform 0.3s;
+  }
+  .about-feat:hover { transform: translateX(5px); }
+  .about-feat i { color: var(--green-mid); }
+
+  /* ─── MENU ─── */
+  .menu-section { background: var(--cream-dark); }
+  .menu-tabs {
+    display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center;
+    margin: 2.5rem 0;
+  }
+  .tab-btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px; border: 2px solid var(--green-mid);
+    background: transparent; cursor: pointer;
+    color: var(--green-mid); font-weight: 700; font-size: 0.88rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: all 0.3s;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--green-dark); color: var(--white); border-color: var(--green-dark);
+    box-shadow: 0 4px 15px var(--shadow);
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.8rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .menu-card {
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: none;
+  }
+  .menu-card.active { display: block; animation: cardIn 0.4s ease; }
+  @keyframes cardIn { from { opacity:0; transform:scale(0.95); } to { opacity:1; transform:scale(1); } }
+  .menu-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px var(--shadow); }
+  .menu-card-img {
+    height: 180px;
+    background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; position: relative; overflow: hidden;
+  }
+  .menu-card-img::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), transparent);
+  }
+  .menu-veg {
+    position: absolute; top: 10px; right: 10px;
+    width: 20px; height: 20px;
+    border: 2px solid #4caf50;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .menu-veg::before {
+    content: ''; width: 8px; height: 8px;
+    border-radius: 50%; background: #4caf50;
+  }
+  .menu-card-body { padding: 1.3rem; }
+  .menu-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--green-dark); margin-bottom: 0.4rem;
+  }
+  .menu-card-desc { font-size: 0.85rem; color: #777; line-height: 1.6; margin-bottom: 1rem; }
+  .menu-card-footer {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .menu-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 800; color: var(--green-mid);
+  }
+  .add-btn {
+    background: var(--green-dark); color: var(--white);
+    border: none; padding: 0.5rem 1.1rem;
+    border-radius: 50px; cursor: pointer;
+    font-size: 0.85rem; font-weight: 700;
+    transition: all 0.3s;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .add-btn:hover { background: var(--green-mid); transform: scale(1.05); }
+
+  /* ─── SPECIALS BANNER ─── */
+  .specials {
+    background: linear-gradient(135deg, var(--green-dark) 0%, #0d2b1a 100%);
+    position: relative; overflow: hidden;
+  }
+  .specials::before {
+    content: '🍃'; position: absolute;
+    font-size: 15rem; opacity: 0.04;
+    top: -3rem; right: -3rem;
+    animation: floatLeaf 10s infinite;
+  }
+  .specials-inner {
+    max-width: 900px; margin: 0 auto;
+    text-align: center; position: relative; z-index: 1;
+  }
+  .specials p { color: rgba(255,255,255,0.75); font-size: 1.05rem; line-height: 1.8; max-width: 600px; margin: 1rem auto 2rem; }
+  .specials-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .special-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px; padding: 1.8rem 1.2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+    text-align: center;
+  }
+  .special-card:hover {
+    background: rgba(255,255,255,0.14);
+    transform: translateY(-6px);
+    border-color: var(--gold);
+  }
+  .special-icon { font-size: 2.5rem; margin-bottom: 0.8rem; display: block; }
+  .special-name {
+    font-family: 'Playfair Display', serif;
+    color: var(--white); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem;
+  }
+  .special-price { color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+  .special-tag {
+    display: inline-block; background: var(--gold);
+    color: var(--green-dark); padding: 0.2rem 0.7rem;
+    border-radius: 50px; font-size: 0.7rem; font-weight: 700;
+    margin-top: 0.5rem;
+  }
+
+  /* ─── GALLERY ─── */
+  .gallery { background: var(--cream); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+    max-width: 1100px; margin: 2rem auto 0;
+  }
+  .gal-item {
+    border-radius: 14px; overflow: hidden;
+    aspect-ratio: 1; cursor: pointer;
+    position: relative;
+    background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    transition: transform 0.4s;
+  }
+  .gal-item:nth-child(1) { grid-column: span 2; grid-row: span 2; font-size: 7rem; }
+  .gal-item:hover { transform: scale(1.02); }
+  .gal-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    display: flex; align-items: flex-end; padding: 1.2rem;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .gal-item:hover .gal-overlay { opacity: 1; }
+  .gal-overlay p { color: var(--white); font-weight: 700; font-size: 0.9rem; }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials { background: var(--cream-dark); }
+  .testimonials-track {
+    max-width: 1100px; margin: 2.5rem auto 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem;
+  }
+  .testi-card {
+    background: var(--white);
+    border-radius: 18px; padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+    position: relative; transition: transform 0.3s;
+  }
+  .testi-card:hover { transform: translateY(-6px); }
+  .testi-card::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem; line-height: 0.8;
+    color: var(--green-pale); font-weight: 800;
+    position: absolute; top: 1.2rem; left: 1.5rem;
+  }
+  .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 0.8rem; }
+  .testi-text { color: var(--text-mid); line-height: 1.8; font-size: 0.95rem; font-style: italic; padding-top: 0.5rem; }
+  .testi-author {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-top: 1.5rem; padding-top: 1rem;
+    border-top: 1px solid var(--cream-dark);
+  }
+  .testi-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-mid), var(--green-light));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-weight: 700; font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .testi-name { font-weight: 700; color: var(--green-dark); font-size: 0.95rem; }
+  .testi-loc { font-size: 0.78rem; color: #888; }
+
+  /* ─── RESERVATION ─── */
+  .reservation {
+    background: linear-gradient(135deg, var(--green-dark) 0%, #0f3320 100%);
+    position: relative; overflow: hidden;
+  }
+  .reservation::after {
+    content: '🍃'; position: absolute;
+    font-size: 20rem; opacity: 0.03;
+    bottom: -4rem; left: -4rem;
+    animation: floatLeaf 12s 2s infinite;
+  }
+  .res-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    max-width: 1100px; margin: 0 auto; position: relative; z-index: 1;
+  }
+  .res-info p { color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 1.5rem; }
+  .res-info-items { display: flex; flex-direction: column; gap: 1rem; }
+  .res-info-item {
+    display: flex; align-items: center; gap: 1rem;
+    color: rgba(255,255,255,0.85);
+  }
+  .res-info-item i {
+    width: 40px; height: 40px;
+    background: rgba(212,160,23,0.2);
+    border: 1px solid rgba(212,160,23,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); flex-shrink: 0;
+  }
+  .res-info-item strong { display: block; color: var(--white); }
+  .res-form {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 20px; padding: 2.5rem;
+  }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block; color: rgba(255,255,255,0.7);
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px; padding: 0.9rem 1.1rem;
+    color: var(--white); font-size: 0.95rem;
+    font-family: 'Lato', sans-serif;
+    transition: border-color 0.3s, background 0.3s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.12);
+  }
+  .form-group select option { background: var(--green-dark); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* ─── SUCCESS TOAST ─── */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--green-mid); color: var(--white);
+    padding: 1rem 1.5rem;
+    border-radius: 12px; box-shadow: 0 8px 30px var(--shadow);
+    font-weight: 700; font-size: 0.95rem;
+    display: flex; align-items: center; gap: 0.6rem;
+    transform: translateY(100px); opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 2000;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ─── INFO STRIP ─── */
+  .info-strip {
+    background: var(--green-dark);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+  }
+  .info-item {
+    padding: 2rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s;
+    text-align: left;
+  }
+  .info-item:last-child { border-right: none; }
+  .info-item:hover { background: rgba(255,255,255,0.05); }
+  .info-icon {
+    width: 48px; height: 48px;
+    background: rgba(212,160,23,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 1.2rem; flex-shrink: 0;
+  }
+  .info-text strong { display: block; color: var(--white); font-size: 0.95rem; }
+  .info-text span { color: rgba(255,255,255,0.6); font-size: 0.82rem; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #0a1f0f;
+    padding: 4rem 2rem 2rem;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; max-width: 1200px; margin: 0 auto;
+  }
+  .footer-brand p { color: rgba(255,255,255,0.6); line-height: 1.8; margin: 1rem 0 1.5rem; font-size: 0.9rem; }
+  .footer-socials {
+    display: flex; gap: 0.8rem;
+  }
+  .social-link {
+    width: 38px; height: 38px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    transition: all 0.3s;
+  }
+  .social-link:hover { background: var(--gold); color: var(--green-dark); transform: translateY(-3px); }
+  .footer-col h4 {
+    color: var(--white); font-size: 0.9rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.2rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.7rem; }
+  .footer-col ul a {
+    color: rgba(255,255,255,0.6); text-decoration: none;
+    font-size: 0.88rem; transition: color 0.3s;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .footer-col ul a:hover { color: var(--gold-light); }
+  .footer-col ul a i { font-size: 0.75rem; color: var(--green-light); }
+  .footer-bottom {
+    max-width: 1200px; margin: 3rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom p { color: rgba(255,255,255,0.4); font-size: 0.83rem; }
+  .footer-bottom span { color: var(--gold); }
+
+  /* ─── CART ─── */
+  .cart-fab {
+    position: fixed; bottom: 2rem; left: 2rem;
+    background: var(--green-dark); color: var(--white);
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; cursor: pointer;
+    box-shadow: 0 6px 25px var(--shadow);
+    z-index: 500; transition: transform 0.3s, background 0.3s;
+    border: none;
+  }
+  .cart-fab:hover { transform: scale(1.1); background: var(--green-mid); }
+  .cart-count {
+    position: absolute; top: -5px; right: -5px;
+    background: var(--gold); color: var(--green-dark);
+    width: 22px; height: 22px; border-radius: 50%;
+    font-size: 0.72rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--white);
+  }
+  .cart-panel {
+    position: fixed; right: -400px; top: 0; bottom: 0;
+    width: 380px; background: var(--white);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.2);
+    z-index: 2001; transition: right 0.4s ease;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .cart-panel.open { right: 0; }
+  .cart-header {
+    padding: 1.5rem; background: var(--green-dark); color: var(--white);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cart-header h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; }
+  .cart-close { background: none; border: none; color: var(--white); font-size: 1.4rem; cursor: pointer; }
+  .cart-items { flex: 1; overflow-y: auto; padding: 1.2rem; }
+  .cart-empty {
+    text-align: center; padding: 3rem 1rem;
+    color: #aaa;
+  }
+  .cart-empty i { font-size: 3rem; margin-bottom: 1rem; display: block; }
+  .cart-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.8rem; border-bottom: 1px solid var(--cream-dark);
+    gap: 1rem;
+  }
+  .cart-item-emoji { font-size: 1.8rem; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-weight: 700; color: var(--green-dark); font-size: 0.9rem; }
+  .cart-item-price { color: var(--green-mid); font-size: 0.85rem; }
+  .cart-item-controls {
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .qty-btn {
+    width: 26px; height: 26px;
+    border: 1px solid var(--green-mid); background: none;
+    border-radius: 50%; cursor: pointer; color: var(--green-mid);
+    font-size: 1rem; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .qty-btn:hover { background: var(--green-dark); color: var(--white); border-color: var(--green-dark); }
+  .cart-footer {
+    padding: 1.2rem; border-top: 2px solid var(--cream-dark);
+    background: var(--cream);
+  }
+  .cart-total {
+    display: flex; justify-content: space-between;
+    font-weight: 700; font-size: 1.1rem; color: var(--green-dark);
+    margin-bottom: 1rem;
+  }
+  .cart-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4); z-index: 2000;
+    display: none;
+  }
+  .cart-overlay.open { display: block; }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── BACK TO TOP ─── */
+  .back-top {
+    position: fixed; bottom: 2rem; right: 2rem;
+    width: 46px; height: 46px;
+    background: var(--green-mid); color: var(--white);
+    border-radius: 50%; border: none; cursor: pointer;
+    font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 15px var(--shadow);
+    opacity: 0; pointer-events: none;
+    transition: all 0.3s;
+    z-index: 400;
+  }
+  .back-top.show { opacity: 1; pointer-events: all; }
+  .back-top:hover { background: var(--green-dark); transform: translateY(-3px); }
+
+  /* ─── ANNOUNCEMENT BAR ─── */
+  .ann-bar {
+    background: var(--gold);
+    text-align: center; padding: 0.5rem 1rem;
+    font-size: 0.82rem; font-weight: 700; color: var(--green-dark);
+    overflow: hidden;
+  }
+  .ann-bar span {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(100vw); }
+    to { transform: translateX(-100%); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { display: none; }
+    .res-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    .gal-item:nth-child(1) { grid-column: span 2; }
+  }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: block; }
+    section { padding: 4rem 1.2rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gal-item:nth-child(1) { grid-column: span 2; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .about-features { grid-template-columns: 1fr; }
+    .cart-panel { width: 100%; right: -100%; }
+    .info-strip { grid-template-columns: 1fr; }
+    .info-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  }
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="preloader-leaf">🌿</div>
+  <div class="preloader-text">Pasumai Family Restaurant</div>
+</div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann-bar">
+  <span>🌿 100% Pure Vegetarian &nbsp;&nbsp; | &nbsp;&nbsp; 🎉 Grand Family Meals from ₹199 &nbsp;&nbsp; | &nbsp;&nbsp; 🕐 Open Daily: 7 AM – 11 PM &nbsp;&nbsp; | &nbsp;&nbsp; 📞 Book a Table: +91 98765 43210 &nbsp;&nbsp; | &nbsp;&nbsp; 🌿 Fresh Ingredients Every Day &nbsp;&nbsp; | &nbsp;&nbsp; 🎂 Special Birthday Packages Available &nbsp;&nbsp; | &nbsp;&nbsp;</span>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">🌿</div>
+    <div class="logo-text">
+      <span class="logo-name">Pasumai</span>
+      <span class="logo-sub">Family Restaurant</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#specials">Specials</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#reservation" class="nav-btn">Reserve Table</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#about" onclick="toggleMenu()"><i class="fas fa-info-circle"></i> About Us</a></li>
+    <li><a href="#menu" onclick="toggleMenu()"><i class="fas fa-utensils"></i> Our Menu</a></li>
+    <li><a href="#specials" onclick="toggleMenu()"><i class="fas fa-star"></i> Specials</a></li>
+    <li><a href="#gallery" onclick="toggleMenu()"><i class="fas fa-images"></i> Gallery</a></li>
+    <li><a href="#testimonials" onclick="toggleMenu()"><i class="fas fa-comment"></i> Reviews</a></li>
+    <li><a href="#reservation" onclick="toggleMenu()"><i class="fas fa-calendar"></i> Reserve Table</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-leaves">
+    <span class="leaf-float">🍃</span>
+    <span class="leaf-float">🌿</span>
+    <span class="leaf-float">🍀</span>
+    <span class="leaf-float">🌱</span>
+    <span class="leaf-float">🍃</span>
+    <span class="leaf-float">🌿</span>
+  </div>
+  <div class="hero-circles">
+    <div class="hero-circle"></div>
+    <div class="hero-circle"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge"><span>🌿</span> 100% Pure Vegetarian</div>
+    <h1 class="hero-title">
+      Taste the <span>Goodness</span><br>of Nature
+    </h1>
+    <p class="hero-subtitle">Where every meal is a family celebration</p>
+    <p class="hero-desc">Experience the finest South Indian vegetarian cuisine crafted with love, fresh ingredients, and traditional recipes passed down through generations.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary"><i class="fas fa-utensils"></i> Explore Menu</a>
+      <a href="#reservation" class="btn-outline"><i class="fas fa-calendar-check"></i> Book a Table</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">15+</span><span class="stat-label">Years Serving</span></div>
+      <div class="stat-item"><span class="stat-num">200+</span><span class="stat-label">Menu Items</span></div>
+      <div class="stat-item"><span class="stat-num">50k+</span><span class="stat-label">Happy Families</span></div>
+      <div class="stat-item"><span class="stat-num">4.9★</span><span class="stat-label">Rating</span></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><i class="fas fa-chevron-down"></i><span>Scroll</span></div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-item">
+    <div class="info-icon"><i class="fas fa-clock"></i></div>
+    <div class="info-text">
+      <strong>Open Hours</strong>
+      <span>Mon–Sun: 7:00 AM – 11:00 PM</span>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+    <div class="info-text">
+      <strong>Our Location</strong>
+      <span>12, Green Street, Chennai – 600001</span>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+    <div class="info-text">
+      <strong>Call Us</strong>
+      <span>+91 98765 43210</span>
+    </div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon"><i class="fas fa-motorcycle"></i></div>
+    <div class="info-text">
+      <strong>Free Delivery</strong>
+      <span>Orders above ₹299 within 5 km</span>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-img-wrap">
+        <span class="about-img-icon">🌿</span>
+        <div class="about-img-text">
+          <h3>Pure & Natural</h3>
+          <p>Farm to Table Since 2009</p>
+        </div>
+      </div>
+      <div class="about-badge">
+        <strong>15+</strong>
+        <span>Years of<br>Excellence</span>
+      </div>
+    </div>
+    <div class="about-content reveal">
+      <span class="section-tag">🌿 Our Story</span>
+      <h2 class="section-title">A Legacy of <span>Pure Vegetarian</span> Cuisine</h2>
+      <div class="section-divider"></div>
+      <p>Founded in 2009, Pasumai Family Restaurant was born from a simple vision — to serve wholesome, delicious vegetarian meals that bring families together. The name "Pasumai" (பசுமை) means "greenery" in Tamil, reflecting our commitment to fresh, plant-based ingredients.</p>
+      <p>Every dish is prepared with carefully selected ingredients, traditional spices, and the kind of love that only a family kitchen can offer. From crispy dosas to hearty thalis, we celebrate the richness of Indian vegetarian cuisine.</p>
+      <div class="about-features">
+        <div class="about-feat"><i class="fas fa-leaf"></i> 100% Pure Veg</div>
+        <div class="about-feat"><i class="fas fa-seedling"></i> Farm Fresh</div>
+        <div class="about-feat"><i class="fas fa-fire-alt"></i> Traditional Recipes</div>
+        <div class="about-feat"><i class="fas fa-heart"></i> Made with Love</div>
+        <div class="about-feat"><i class="fas fa-award"></i> Award Winning</div>
+        <div class="about-feat"><i class="fas fa-users"></i> Family Friendly</div>
+      </div>
+      <a href="#reservation" class="btn-primary" style="margin-top:0.5rem;display:inline-flex;">
+        <i class="fas fa-calendar-check"></i> Reserve Your Table
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+{% for item in menu_items %}
+<div class="menu-card active" data-cat="{{ item.category }}">
+  <div class="menu-card-img">
+    <span>{{ item.emoji }}</span>
+  </div>
+  <div class="menu-card-body">
+    <div class="menu-card-name">{{ item.name }}</div>
+    <div class="menu-card-desc">{{ item.description }}</div>
+    <div class="menu-card-footer">
+      <span class="menu-price">₹{{ item.price }}</span>
+      <button class="add-btn">Add</button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+    <!-- BREAKFAST -->
+    <div class="menu-card active" data-cat="breakfast">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#2d5a1b,#4a8f2f);">
+        <span>🥞</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Plain Dosa</div>
+        <div class="menu-card-desc">Crispy golden rice crepe served with sambar and 3 chutneys</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹60</span>
+          <button class="add-btn" onclick="addToCart('Plain Dosa','60','🥞')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card active" data-cat="breakfast">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#5a3a1b,#8f6230);">
+        <span>🫓</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Masala Dosa</div>
+        <div class="menu-card-desc">Crispy dosa stuffed with spiced potato masala, sambar & chutneys</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹80</span>
+          <button class="add-btn" onclick="addToCart('Masala Dosa','80','🫓')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card active" data-cat="breakfast">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#1b3d5a,#2d6b8f);">
+        <span>🍚</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Idli (4 pcs)</div>
+        <div class="menu-card-desc">Soft steamed rice cakes with sambar and coconut chutney</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹50</span>
+          <button class="add-btn" onclick="addToCart('Idli (4pcs)','50','🍚')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card active" data-cat="breakfast">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#3d1b5a,#6b2d8f);">
+        <span>🥣</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Pongal</div>
+        <div class="menu-card-desc">Creamy rice & lentil porridge tempered with pepper, cumin & ghee</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹70</span>
+          <button class="add-btn" onclick="addToCart('Pongal','70','🥣')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <!-- LUNCH -->
+    <div class="menu-card" data-cat="lunch">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#1a4a2e,#2d7a4f);">
+        <span>🍱</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Pasumai Special Thali</div>
+        <div class="menu-card-desc">Rice, 3 curries, sambar, rasam, papad, pickle & dessert</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹199</span>
+          <button class="add-btn" onclick="addToCart('Special Thali','199','🍱')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="lunch">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#5a4a1b,#8f7a30);">
+        <span>🍛</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Sambar Rice</div>
+        <div class="menu-card-desc">Steamed rice with aromatic tamarind sambar and papad</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹80</span>
+          <button class="add-btn" onclick="addToCart('Sambar Rice','80','🍛')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="lunch">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#5a1b1b,#8f3030);">
+        <span>🥘</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Curd Rice</div>
+        <div class="menu-card-desc">Cooling yogurt rice tempered with mustard, curry leaves & ginger</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹70</span>
+          <button class="add-btn" onclick="addToCart('Curd Rice','70','🥘')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="lunch">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#1b405a,#2d6b8f);">
+        <span>🍲</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Meals (Unlimited)</div>
+        <div class="menu-card-desc">Traditional South Indian unlimited meals with all accompaniments</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹149</span>
+          <button class="add-btn" onclick="addToCart('Unlimited Meals','149','🍲')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <!-- DINNER -->
+    <div class="menu-card" data-cat="dinner">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#2e1a4a,#4f2d7a);">
+        <span>🫕</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Chapati with Curry</div>
+        <div class="menu-card-desc">Soft wheat chapatis with dal makhani and mixed vegetable curry</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹110</span>
+          <button class="add-btn" onclick="addToCart('Chapati Curry','110','🫕')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="dinner">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#1b4a3a,#2d7a62);">
+        <span>🥗</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Biryani (Veg)</div>
+        <div class="menu-card-desc">Fragrant basmati rice with seasonal vegetables and saffron</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹160</span>
+          <button class="add-btn" onclick="addToCart('Veg Biryani','160','🥗')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="dinner">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#4a2d1a,#7a4f2d);">
+        <span>🫔</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Family Dinner Set</div>
+        <div class="menu-card-desc">For 4 persons: Rotis, rice, dal, 2 gravies, salad & dessert</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹499</span>
+          <button class="add-btn" onclick="addToCart('Family Dinner','499','🫔')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <!-- SNACKS -->
+    <div class="menu-card" data-cat="snacks">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#4a3a1a,#7a6030);">
+        <span>🥟</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Samosa (2 pcs)</div>
+        <div class="menu-card-desc">Crispy pastry stuffed with spiced potatoes and green peas</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹40</span>
+          <button class="add-btn" onclick="addToCart('Samosa','40','🥟')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="snacks">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#3a1a4a,#6a2d7a);">
+        <span>🧆</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Medu Vada (2 pcs)</div>
+        <div class="menu-card-desc">Crispy urad dal fritters with sambar and coconut chutney</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹55</span>
+          <button class="add-btn" onclick="addToCart('Medu Vada','55','🧆')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="snacks">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#1a4a1a,#2d7a2d);">
+        <span>🌽</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Bhel Puri</div>
+        <div class="menu-card-desc">Puffed rice, veggies, sev and tangy tamarind chutney</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹60</span>
+          <button class="add-btn" onclick="addToCart('Bhel Puri','60','🌽')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <!-- DESSERTS -->
+    <div class="menu-card" data-cat="desserts">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#4a1a2e,#8f2d52);">
+        <span>🍮</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Gulab Jamun</div>
+        <div class="menu-card-desc">Soft milk-solid dumplings soaked in rose-cardamom syrup</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹60</span>
+          <button class="add-btn" onclick="addToCart('Gulab Jamun','60','🍮')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="desserts">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#4a3a1a,#8f7030);">
+        <span>🍯</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Kesari (Halwa)</div>
+        <div class="menu-card-desc">Semolina pudding with saffron, ghee, nuts and cardamom</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹50</span>
+          <button class="add-btn" onclick="addToCart('Kesari','50','🍯')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="desserts">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#1a2e4a,#2d527a);">
+        <span>🍨</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Payasam</div>
+        <div class="menu-card-desc">Traditional South Indian rice pudding with coconut milk and jaggery</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹55</span>
+          <button class="add-btn" onclick="addToCart('Payasam','55','🍨')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <!-- DRINKS -->
+    <div class="menu-card" data-cat="drinks">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#1a4a1a,#3a8f3a);">
+        <span>🥛</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Fresh Lime Soda</div>
+        <div class="menu-card-desc">Freshly squeezed lime with soda, mint and chaat masala</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹45</span>
+          <button class="add-btn" onclick="addToCart('Lime Soda','45','🥛')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="drinks">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#4a1a1a,#8f3a2d);">
+        <span>🧃</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Mango Lassi</div>
+        <div class="menu-card-desc">Thick creamy yogurt blended with fresh Alphonso mango pulp</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹75</span>
+          <button class="add-btn" onclick="addToCart('Mango Lassi','75','🧃')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card" data-cat="drinks">
+      <div class="menu-card-img" style="background:linear-gradient(135deg,#2e2e1a,#5a5a2d);">
+        <span>☕</span><div class="menu-veg"></div>
+      </div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">Filter Coffee</div>
+        <div class="menu-card-desc">Authentic South Indian decoction coffee with full-cream milk</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">₹35</span>
+          <button class="add-btn" onclick="addToCart('Filter Coffee','35','☕')"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALS -->
+<section class="specials" id="specials">
+  <div class="specials-inner reveal">
+    <span class="section-tag" style="background:rgba(212,160,23,0.15);color:var(--gold-light);border-color:rgba(212,160,23,0.3);">⭐ Chef's Specials</span>
+    <h2 class="section-title light">Today's <span>Special</span> Offerings</h2>
+    <div class="section-divider"></div>
+    <p>Exclusive dishes crafted fresh each day, celebrating seasonal produce and festive traditions. Limited portions — order early!</p>
+    <div class="specials-cards">
+      <div class="special-card">
+        <span class="special-icon">🌾</span>
+        <div class="special-name">Pongal Thali</div>
+        <div class="special-price">₹149</div>
+        <div class="special-tag">⭐ Festival Special</div>
+      </div>
+      <div class="special-card">
+        <span class="special-icon">🍃</span>
+        <div class="special-name">Raw Banana Curry</div>
+        <div class="special-price">₹95</div>
+        <div class="special-tag">🌿 Chef's Pick</div>
+      </div>
+      <div class="special-card">
+        <span class="special-icon">🥜</span>
+        <div class="special-name">Mixed Dal Tadka</div>
+        <div class="special-price">₹120</div>
+        <div class="special-tag">🔥 Most Loved</div>
+      </div>
+      <div class="special-card">
+        <span class="special-icon">🎂</span>
+        <div class="special-name">Birthday Meal</div>
+        <div class="special-price">₹399</div>
+        <div class="special-tag">🎉 Party Package</div>
+      </div>
+    </div>
+    <a href="#reservation" class="btn-primary" style="margin-top:2.5rem;display:inline-flex;">
+      <i class="fas fa-phone-alt"></i> Call to Reserve
+    </a>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="center reveal">
+    <span class="section-tag">📸 Gallery</span>
+    <h2 class="section-title">A Feast <span>for the Eyes</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gal-item" style="background:linear-gradient(135deg,#1a4a2e,#2d7a4f); font-size:7rem;">
+      🍽
+      <div class="gal-overlay"><p>Our Grand Thali</p></div>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(135deg,#5a3a1b,#8f6230);">
+      🥞
+      <div class="gal-overlay"><p>Crispy Dosas</p></div>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(135deg,#2e1a4a,#4f2d7a);">
+      🍵
+      <div class="gal-overlay"><p>Filter Coffee</p></div>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(135deg,#1a3d1a,#2d6b2d);">
+      🥗
+      <div class="gal-overlay"><p>Fresh Salads</p></div>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(135deg,#4a1a2e,#7a2d4f);">
+      🍮
+      <div class="gal-overlay"><p>Sweet Desserts</p></div>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(135deg,#3a2d1a,#6b522d);">
+      🧆
+      <div class="gal-overlay"><p>Crispy Vadas</p></div>
+    </div>
+    <div class="gal-item" style="background:linear-gradient(135deg,#1a2e4a,#2d527a);">
+      🥘
+      <div class="gal-overlay"><p>Hearty Curries</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="center reveal">
+    <span class="section-tag">💬 Reviews</span>
+    <h2 class="section-title">What <span>Families</span> Say</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="testimonials-track">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">The best vegetarian food in Chennai! The Pasumai Thali is simply outstanding. The sambar has that perfect home-cooked taste. We visit every Sunday with our family — it truly feels like eating at grandma's kitchen.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Ramesh Kumar</div>
+          <div class="testi-loc">📍 Anna Nagar, Chennai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Pasumai is our go-to restaurant for family celebrations. The food is fresh, the service is warm and attentive, and the price is very reasonable. The filter coffee here is the best in the city. Absolutely love this place!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">P</div>
+        <div>
+          <div class="testi-name">Priya Selvam</div>
+          <div class="testi-loc">📍 T. Nagar, Chennai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">I celebrated my son's birthday here and the staff went above and beyond to make it special. The birthday package is great value and the payasam was divine! Clean, hygienic, and such a welcoming atmosphere for families.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">S</div>
+        <div>
+          <div class="testi-name">Sunita Krishnan</div>
+          <div class="testi-loc">📍 Velachery, Chennai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section class="reservation" id="reservation">
+  <div class="res-grid">
+    <div class="res-info reveal">
+      <span class="section-tag" style="background:rgba(212,160,23,0.15);color:var(--gold-light);border-color:rgba(212,160,23,0.3);">📅 Reservations</span>
+      <h2 class="section-title light">Reserve Your <span>Table</span> Now</h2>
+      <div class="section-divider"></div>
+      <p>Book your table in advance to ensure the best dining experience for your family. We accept reservations for groups of all sizes, from intimate family meals to large celebrations.</p>
+      <div class="res-info-items">
+        <div class="res-info-item">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <strong>+91 98765 43210</strong>
+            <span>Call to book instantly</span>
+          </div>
+        </div>
+        <div class="res-info-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <strong>info@pasumairestaurant.com</strong>
+            <span>Email reservations</span>
+          </div>
+        </div>
+        <div class="res-info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <strong>12, Green Street, Chennai – 600001</strong>
+            <span>Near Central Station</span>
+          </div>
+        </div>
+        <div class="res-info-item">
+          <i class="fas fa-clock"></i>
+          <div>
+            <strong>Mon–Sun: 7:00 AM – 11:00 PM</strong>
+            <span>Last order at 10:30 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+<form method="POST" action="/reserve/">
+  {% csrf_token %}
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="text" name="phone" placeholder="Phone Number" required>
+  <input type="date" name="date" required>
+  <input type="time" name="time" required>
+  <input type="number" name="guests" required>
+  <button type="submit">Book Table</button>
+</form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:1rem;display:inline-flex;">
+        <div class="logo-icon">🌿</div>
+        <div class="logo-text">
+          <span class="logo-name">Pasumai</span>
+          <span class="logo-sub">Family Restaurant</span>
+        </div>
+      </a>
+      <p>Serving pure vegetarian cuisine with love since 2009. Our commitment to fresh ingredients, traditional recipes, and family values makes every meal unforgettable.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Our Menu</a></li>
+        <li><a href="#specials"><i class="fas fa-chevron-right"></i> Daily Specials</a></li>
+        <li><a href="#gallery"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+        <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Reviews</a></li>
+        <li><a href="#reservation"><i class="fas fa-chevron-right"></i> Reservations</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Menu</h4>
+      <ul>
+        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Breakfast</a></li>
+        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Lunch Specials</a></li>
+        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Dinner</a></li>
+        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Snacks</a></li>
+        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Desserts</a></li>
+        <li><a href="#menu"><i class="fas fa-chevron-right"></i> Beverages</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+        <li><a href="mailto:info@pasumairestaurant.com"><i class="fas fa-envelope"></i> info@pasumairestaurant.com</a></li>
+        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 12 Green Street, Chennai</a></li>
+        <li><a href="#"><i class="fas fa-clock"></i> 7:00 AM – 11:00 PM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 <span>Pasumai Family Restaurant</span>. All Rights Reserved. Made with 💚 in Chennai.</p>
+    <p>🌿 100% Pure Vegetarian | FSSAI Licensed</p>
+  </div>
+</footer>
+
+<!-- CART FAB -->
+<button class="cart-fab" onclick="toggleCart()">
+  <i class="fas fa-shopping-bag"></i>
+  <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<!-- CART PANEL -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>🛒 Your Order</h3>
+    <button class="cart-close" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <i class="fas fa-shopping-bag"></i>
+      <p>Your cart is empty<br><small>Add items from our menu!</small></p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">₹0</span>
+    </div>
+    <button class="btn-primary" style="width:100%;justify-content:center;" onclick="checkout()">
+      <i class="fas fa-check-circle"></i> Place Order
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+  // ── PRELOADER ──
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('preloader').classList.add('hide');
+    }, 1800);
+  });
+
+  // ── NAV SCROLL ──
+  const navbar = document.getElementById('navbar');
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      navbar.classList.add('scrolled');
+      backTop.classList.add('show');
+    } else {
+      navbar.classList.remove('scrolled');
+      backTop.classList.remove('show');
+    }
+  });
+
+  // ── MOBILE MENU ──
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('mobileOverlay').classList.toggle('open');
+  }
+
+  // ── MENU FILTER ──
+  function filterMenu(cat) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`[data-cat="${cat}"]`).classList.add('active');
+    document.querySelectorAll('.menu-card').forEach(c => {
+      if (c.dataset.cat === cat) c.classList.add('active');
+      else c.classList.remove('active');
+    });
+  }
+
+  // ── CART ──
+  let cart = [];
+  function toggleCart() {
+    document.getElementById('cartPanel').classList.toggle('open');
+    document.getElementById('cartOverlay').classList.toggle('open');
+  }
+  function addToCart(name, price, emoji) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) existing.qty++;
+    else cart.push({ name, price: parseInt(price), emoji, qty: 1 });
+    renderCart();
+    showToast(`🛒 ${name} added to order!`);
+  }
+  function removeFromCart(name) {
+    const item = cart.find(i => i.name === name);
+    if (item) {
+      item.qty--;
+      if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+    }
+    renderCart();
+  }
+  function renderCart() {
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const count = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cartCount').textContent = count;
+    document.getElementById('cartTotal').textContent = `₹${total}`;
+    const el = document.getElementById('cartItems');
+    if (!cart.length) {
+      el.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-bag"></i><p>Your cart is empty<br><small>Add items from our menu!</small></p></div>`;
+      return;
+    }
+    el.innerHTML = cart.map(i => `
+      <div class="cart-item">
+        <span class="cart-item-emoji">${i.emoji}</span>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${i.name}</div>
+          <div class="cart-item-price">₹${i.price} × ${i.qty} = ₹${i.price*i.qty}</div>
+        </div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="removeFromCart('${i.name}')">−</button>
+          <span style="font-weight:700;min-width:20px;text-align:center">${i.qty}</span>
+          <button class="qty-btn" onclick="addToCart('${i.name}','${i.price}','${i.emoji}')">+</button>
+        </div>
+      </div>`).join('');
+  }
+  function checkout() {
+    if (!cart.length) { showToast('⚠️ Please add items first!'); return; }
+    cart = [];
+    renderCart();
+    toggleCart();
+    showToast('✅ Order placed! We will call you to confirm.');
+  }
+
+  // ── RESERVATION ──
+  function submitReservation() {
+    const name = document.getElementById('res-name').value;
+    const phone = document.getElementById('res-phone').value;
+    const date = document.getElementById('res-date').value;
+    const time = document.getElementById('res-time').value;
+    if (!name || !phone || !date || !time) {
+      showToast('⚠️ Please fill all required fields!'); return;
+    }
+    showToast(`✅ Table reserved for ${name}! We'll confirm soon.`);
+    document.getElementById('res-name').value = '';
+    document.getElementById('res-phone').value = '';
+    document.getElementById('res-date').value = '';
+    document.getElementById('res-time').value = '';
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.innerHTML = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── SET MIN DATE ──
+  document.getElementById('res-date').min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
